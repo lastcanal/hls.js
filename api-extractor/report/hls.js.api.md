@@ -411,6 +411,10 @@ export class BaseStreamController extends TaskLoop implements NetworkComponentAP
     protected fragCurrent: Fragment | null;
     // (undocumented)
     protected fragmentLoader: FragmentLoader;
+    // Warning: (ae-forgotten-export) The symbol "FragmentPreloader" needs to be exported by the entry point hls.d.ts
+    //
+    // (undocumented)
+    protected fragmentPreloader: FragmentPreloader;
     // (undocumented)
     protected fragmentTracker: FragmentTracker;
     // (undocumented)
@@ -461,6 +465,8 @@ export class BaseStreamController extends TaskLoop implements NetworkComponentAP
     protected levelLastLoaded: Level | null;
     // (undocumented)
     protected levels: Array<Level> | null;
+    // (undocumented)
+    protected loadedEndOfParts(partList: Part[], targetBufferTime: number): boolean;
     // (undocumented)
     protected loadFragment(frag: Fragment, level: Level, targetBufferTime: number): void;
     // (undocumented)
@@ -3175,6 +3181,11 @@ export class LevelDetails {
     // (undocumented)
     playlistParsingError: Error | null;
     // (undocumented)
+    preloadData?: {
+        frag: Fragment;
+        part?: Part;
+    };
+    // (undocumented)
     preloadHint?: AttrList;
     // (undocumented)
     PTSKnown: boolean;
@@ -3563,6 +3574,8 @@ export interface LoaderStats {
     // (undocumented)
     aborted: boolean;
     // (undocumented)
+    blockingLoad: boolean;
+    // (undocumented)
     buffering: HlsProgressivePerformanceTiming;
     // (undocumented)
     bwEstimate: number;
@@ -3593,6 +3606,8 @@ export type LoadPolicy = {
 export class LoadStats implements LoaderStats {
     // (undocumented)
     aborted: boolean;
+    // (undocumented)
+    blockingLoad: boolean;
     // (undocumented)
     buffering: HlsProgressivePerformanceTiming;
     // (undocumented)
